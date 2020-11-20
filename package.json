@@ -1,20 +1,24 @@
 {
   "dependencies": {
     "axios": "^0.19.0",
+    "bootstrap": "^4.5.3",
     "compression": "^1.7.1",
     "express": "^4.16.2",
     "helmet": "^3.20.0",
     "humps": "^2.0.1",
     "immutable": "^3.8.2",
+    "mysql": "^2.18.1",
     "next": "^9.3.6",
     "next-redux-wrapper": "^5.0.0",
     "next-routes": "^1.4.2",
+    "node-fetch": "^2.6.1",
     "prop-types": "^15.6.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-helmet": "^6.0.0",
     "react-is": "^16.13.1",
     "react-redux": "^7.0.3",
+    "reactstrap": "^8.7.1",
     "redux": "^4.0.1",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
@@ -58,7 +62,6 @@
   "lint-staged": {
     "*.js": [
       "yarn lint:fix",
-      "git add"
     ]
   },
   "standard": {
