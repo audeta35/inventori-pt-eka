@@ -61,7 +61,7 @@
   "pre-commit": "lint-staged",
   "lint-staged": {
     "*.js": [
-      "yarn lint:fix",
+      "yarn lint:fix"
     ]
   },
   "standard": {
