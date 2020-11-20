@@ -29,6 +29,18 @@ app.prepare().then(() => {
     return handler(req, res)
   })
 
+  server.post('*', (req, res) => {
+    return handler(req, res)
+  })
+
+  server.put('*', (req, res) => {
+    return handler(req, res)
+  })
+
+  server.delete('*', (req, res) => {
+    return handler(req, res)
+  })
+
   startServer()
 
   function startServer () {

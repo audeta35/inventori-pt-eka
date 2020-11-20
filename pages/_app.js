@@ -7,7 +7,6 @@ import { withRouter } from 'next/router'
 import App from 'next/app'
 
 import createStore from 'store/createStore'
-import Layout from 'components/Layout'
 import theme from 'theme'
 
 const GlobalStyle = createGlobalStyle`
@@ -28,7 +27,7 @@ class MyApp extends App {
         <ThemeProvider theme={theme}>
           <Provider store={store}>
             <GlobalStyle />
-              <Component router={router} {...pageProps} />
+            <Component router={router} {...pageProps} />
           </Provider>
         </ThemeProvider>
       </>
