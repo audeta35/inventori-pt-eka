@@ -17,7 +17,7 @@ const GlobalStyle = createGlobalStyle`
 class MyApp extends App {
   render () {
     const { Component, pageProps, router, store } = this.props
-    const title = 'Hello next.js Real World!'
+    const title = 'ASA FARMA'
     return (
       <>
         <Helmet>
@@ -28,9 +28,7 @@ class MyApp extends App {
         <ThemeProvider theme={theme}>
           <Provider store={store}>
             <GlobalStyle />
-            <Layout>
               <Component router={router} {...pageProps} />
-            </Layout>
           </Provider>
         </ThemeProvider>
       </>
