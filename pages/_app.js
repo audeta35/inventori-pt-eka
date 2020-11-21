@@ -46,9 +46,13 @@ class MyApp extends App {
               <CircularProgress className="text-white" />
             </Backdrop>
             {this.state.isLoading ? null : (
-              <Page>
+              window.location.pathname === '/auth/login' ? (
                 <Component router={router} {...pageProps} />
-              </Page>
+              ) : (
+                <Page>
+                  <Component router={router} {...pageProps} />
+                </Page>
+              )
             )}
           </Provider>
         </ThemeProvider>

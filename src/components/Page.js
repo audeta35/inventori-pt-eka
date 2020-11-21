@@ -104,7 +104,7 @@ export default function Page(props) {
       />
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        {isLoading ? null : props.children }
+        {isLoading ? <b>Loading</b> : props.children }
       </main>
     </div>
   );

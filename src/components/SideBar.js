@@ -14,54 +14,60 @@ import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import { CssBaseline, Tooltip } from '@material-ui/core';
 import { ArchiveOutlined, DashboardOutlined, DataUsageOutlined, DesktopWindowsOutlined, ExitToAppOutlined, LocalAtmOutlined, PeopleAltOutlined, SettingsOutlined } from '@material-ui/icons';
+import { useRouter } from 'next/router'
 
 export default function SideBar(props) {
+    const router = useRouter()
+
+    const navigation = async (path) => {
+        router.push(path);
+    }
 
     const handleDrawerClose = async () => {
        props.handleDrawerClose();
     };
 
-    const path = props.path;
+    const path = window.location.pathname;
     console.log(path);
 
     const menu = [{
-        path : '/dashboard',
+        path : '/',
         name : 'Dashboard',
         icon : <DashboardOutlined />,
         submenu : null,
     },{
-        path : '#',
+        path : '/stok',
         name : 'Stok Barang',
         icon : <DataUsageOutlined />,
         submenu : null,
     },{
-        path : '#',
+        path : '/keuangan',
         name : 'Keuangan',
         icon : <LocalAtmOutlined />,
         submenu : null,
     },{
-        path : '#',
+        path : '/rekap',
         name : 'Rekap Data',
         icon : <ArchiveOutlined />,
         submenu : null,
     },{
-        path : '#',
+        path : '/pengguna',
         name : 'Pengguna',
         icon : <PeopleAltOutlined />,
         submenu : null,
     },{
-        path : '#',
+        path : '/backup',
         name : 'Backup Sistem',
         icon : <DesktopWindowsOutlined />,
         submenu : null,
     },{
-        path : '#',
+        path : '/konfigurasi',
         name : 'Konfigurasi',
         icon : <SettingsOutlined />,
         submenu : null,
     },
     {
-        path : '#',
+        path : '/auth/login',
         name : 'Keluar',
         icon : <ExitToAppOutlined />,
         submenu : null,
@@ -91,7 +97,7 @@ export default function SideBar(props) {
             </div>
             <List>
             {menu.map((data, index) => (
-                    <ListItem button key={index} className={data.path === path ? "text-primary" : null}>
+                    <ListItem button onClick={() => navigation(data.path)} key={index} className={data.path === path ? "bg-info" : null}>
                         <ListItemIcon>
                             <Tooltip title={data.name}>
                                 {data.icon}
