@@ -12,7 +12,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
-import { CssBaseline } from '@material-ui/core';
+import { CssBaseline, Tooltip } from '@material-ui/core';
 import { ArchiveOutlined, DashboardOutlined, DataUsageOutlined, DesktopWindowsOutlined, ExitToAppOutlined, LocalAtmOutlined, PeopleAltOutlined, SettingsOutlined } from '@material-ui/icons';
 
 export default function SideBar(props) {
@@ -93,13 +93,14 @@ export default function SideBar(props) {
             {menu.map((data, index) => (
                     <ListItem button key={index} className={data.path === path ? "text-primary" : null}>
                         <ListItemIcon>
-                            {data.icon}
+                            <Tooltip title={data.name}>
+                                {data.icon}
+                            </Tooltip>
                         </ListItemIcon>
                         <ListItemText primary={data.name} />
                     </ListItem>
                 ))}
             </List>
-            <Divider />
         </Drawer>
         {/* sidebar */}
         </Fragment>
