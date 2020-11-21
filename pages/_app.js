@@ -1,18 +1,14 @@
-import { ThemeProvider, createGlobalStyle } from 'styled-components'
+import { ThemeProvider } from 'styled-components'
 import { Helmet } from 'react-helmet'
 import withRedux from 'next-redux-wrapper'
 import { Provider } from 'react-redux'
-import styledNormalize from 'styled-normalize'
 import { withRouter } from 'next/router'
 import App from 'next/app'
 
 import createStore from 'store/createStore'
-import Layout from 'components/Layout'
 import theme from 'theme'
-
-const GlobalStyle = createGlobalStyle`
-  ${styledNormalize}
-`
+import Page from '../src/components/Page'
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 class MyApp extends App {
   render () {
@@ -24,11 +20,14 @@ class MyApp extends App {
           <title>{title}</title>
           <meta name='viewport' content='width=device-width, initial-scale=1' />
           <meta property='og:title' content={title} />
+          <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+          <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
         </Helmet>
         <ThemeProvider theme={theme}>
           <Provider store={store}>
-            <GlobalStyle />
+            <Page>
               <Component router={router} {...pageProps} />
+            </Page>
           </Provider>
         </ThemeProvider>
       </>

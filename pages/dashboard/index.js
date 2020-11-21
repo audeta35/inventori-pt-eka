@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 
-export default class Navbar extends Component {
+export default class Dashboard extends Component {
     render() {
         return (
-            <b>asd</b>
+            <b>Hello</b>
         )
     }
 }
