@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 export default class Main extends Component {
     render() {
         return (
-            <b>Hello</b>
+            <b>Main Page</b>
         )
     }
 }

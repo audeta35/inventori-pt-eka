@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import NavBar from './NavBar';
@@ -72,6 +72,12 @@ export default function Page(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = useState(true) || true;
+  const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1000)   
+  }, [])
   
   const handleDrawerOpen = async () => {
     await setOpen(true);
@@ -98,7 +104,7 @@ export default function Page(props) {
       />
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        {props.children}
+        {isLoading ? null : props.children }
       </main>
     </div>
   );

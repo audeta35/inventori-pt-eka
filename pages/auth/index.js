@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 
-export default class Dashboard extends Component {
+export default class Auth extends Component {
     render() {
         return (
-            <b>Hello</b>
+            <h1>Login Page</h1>
         )
     }
 }

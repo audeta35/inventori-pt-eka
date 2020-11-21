@@ -9,8 +9,25 @@ import createStore from 'store/createStore'
 import theme from 'theme'
 import Page from '../src/components/Page'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { Backdrop, CircularProgress } from '@material-ui/core'
 
 class MyApp extends App {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      isLoading : true,
+    }
+  }
+
+  componentDidMount() {
+    setTimeout(() => {
+      this.setState({
+        isLoading : false,
+      })
+    }, 1000)
+  }
+
   render () {
     const { Component, pageProps, router, store } = this.props
     const title = 'ASA FARMA'
@@ -25,9 +42,14 @@ class MyApp extends App {
         </Helmet>
         <ThemeProvider theme={theme}>
           <Provider store={store}>
-            <Page>
-              <Component router={router} {...pageProps} />
-            </Page>
+            <Backdrop open={this.state.isLoading}>
+              <CircularProgress className="text-white" />
+            </Backdrop>
+            {this.state.isLoading ? null : (
+              <Page>
+                <Component router={router} {...pageProps} />
+              </Page>
+            )}
           </Provider>
         </ThemeProvider>
       </>
