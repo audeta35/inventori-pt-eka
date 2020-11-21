@@ -60,7 +60,7 @@
     "lint:fix": "standard --fix --verbose | snazzy"
   },
   "standard": {
-    "parser": "babel-eslint",
+    "parser": "babel-eslint"
   },
   "engines": {
     "node": ">= 10"
