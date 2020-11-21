@@ -16,6 +16,7 @@ const useStyles = makeStyles((theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
+    backgroundColor: "#f0ad4e",
   },
   appBarShift: {
     marginLeft: drawerWidth,
@@ -24,6 +25,7 @@ const useStyles = makeStyles((theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
     }),
+    backgroundColor: "#ffc107",
   },
   menuButton: {
     marginRight: 36,
@@ -80,7 +82,7 @@ export default function Page(props) {
   }, [])
   
   const handleDrawerOpen = async () => {
-    await setOpen(true);
+    await setOpen(!open);
   };
 
   const handleDrawerClose = async () => {

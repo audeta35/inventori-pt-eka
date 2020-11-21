@@ -23,10 +23,6 @@ export default function SideBar(props) {
         router.push(path);
     }
 
-    const handleDrawerClose = async () => {
-       props.handleDrawerClose();
-    };
-
     const path = window.location.pathname;
     console.log(path);
 
@@ -89,15 +85,12 @@ export default function SideBar(props) {
             }),
             }}
         >
-            <div className={props.classes.toolbar}>
-            <IconButton onClick={handleDrawerClose}>
-                {props.theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-            </IconButton>
-            
+            <div className="text-center">
+                <img src='/static/UI/assets/logo.png' width={100} />
             </div>
             <List>
             {menu.map((data, index) => (
-                    <ListItem button onClick={() => navigation(data.path)} key={index} className={data.path === path ? "bg-info" : null}>
+                    <ListItem button onClick={() => navigation(data.path)} key={index} className={data.path === path ? "bg-warning text-white" : null}>
                         <ListItemIcon>
                             <Tooltip title={data.name}>
                                 {data.icon}

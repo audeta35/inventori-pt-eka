@@ -42,10 +42,18 @@ class MyApp extends App {
         </Helmet>
         <ThemeProvider theme={theme}>
           <Provider store={store}>
-            <Backdrop open={this.state.isLoading}>
-              <CircularProgress className="text-white" />
-            </Backdrop>
-            {this.state.isLoading ? null : (
+            {this.state.isLoading ? (
+              <div className="bg-warning" style={{position: 'fixed', width: '100%', height: '100%', }}>
+                  <div className="row align-items-center h-100">
+                      <div className="col-12 text-center text-white mx-auto">
+                          <h1>
+                            <img src='/static/UI/assets/logo.png' width={250} />
+                          </h1>
+                          <CircularProgress className="text-white" />
+                      </div>
+                  </div>
+              </div>
+            ) : (
               window.location.pathname === '/auth/login' ? (
                 <Component router={router} {...pageProps} />
               ) : (

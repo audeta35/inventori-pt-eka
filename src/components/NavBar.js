@@ -24,9 +24,6 @@ export default function NavBar(props) {
             aria-label="open drawer"
             onClick={props.handleDrawerOpen}
             edge="start"
-            className={clsx(props.classes.menuButton, {
-              [props.classes.hide]: props.open,
-            })}
           >
             <MenuIcon />
           </IconButton>
