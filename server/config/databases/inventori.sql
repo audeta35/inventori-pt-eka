@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 21, 2020 at 05:27 AM
+-- Generation Time: Nov 21, 2020 at 06:03 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.6
 
@@ -78,7 +78,7 @@ CREATE TABLE `inputs` (
   `item_amount` int(11) NOT NULL,
   `total_price` int(11) NOT NULL,
   `created_time` timestamp NOT NULL DEFAULT current_timestamp(),
-  `deleted_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+  `deleted_time` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -87,7 +87,11 @@ CREATE TABLE `inputs` (
 
 INSERT INTO `inputs` (`id_input`, `id_product`, `id_suplier`, `id_user`, `item_amount`, `total_price`, `created_time`, `deleted_time`) VALUES
 (1, 1, 2, 2, 100, 500000, '2020-11-21 03:09:22', '0000-00-00 00:00:00'),
-(2, 1, 2, 2, 20, 100000, '2020-11-21 03:30:59', '0000-00-00 00:00:00');
+(2, 1, 2, 2, 20, 100000, '2020-11-21 03:30:59', '0000-00-00 00:00:00'),
+(3, 2, 2, 2, 100, 50000, '2020-11-21 04:56:37', '0000-00-00 00:00:00'),
+(4, 1, 2, 2, 20, 10000, '2020-11-21 04:58:29', '0000-00-00 00:00:00'),
+(5, 1, 2, 2, 20, 10000, '2020-11-21 04:58:47', '0000-00-00 00:00:00'),
+(6, 2, 2, 2, 0, 10000, '2020-11-21 04:59:12', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -115,7 +119,9 @@ CREATE TABLE `outputs` (
   `amount` int(11) NOT NULL,
   `batch_number` varchar(20) NOT NULL,
   `total_price` int(11) NOT NULL,
-  `address` text NOT NULL
+  `address` text NOT NULL,
+  `created_time` timestamp NOT NULL DEFAULT current_timestamp(),
+  `deleted_time` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -126,13 +132,12 @@ CREATE TABLE `outputs` (
 
 CREATE TABLE `products` (
   `id_product` int(11) NOT NULL,
-  `id_suplier` int(11) NOT NULL,
   `id_ingredient` int(11) NOT NULL,
   `product_name` varchar(50) NOT NULL,
+  `product_code` varchar(20) NOT NULL,
   `product_stock` int(11) NOT NULL,
   `product_ed` date NOT NULL,
   `product_original_packing` int(11) NOT NULL,
-  `product_price` int(11) NOT NULL,
   `created_time` timestamp NOT NULL DEFAULT current_timestamp(),
   `deleted_time` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -141,8 +146,9 @@ CREATE TABLE `products` (
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`id_product`, `id_suplier`, `id_ingredient`, `product_name`, `product_stock`, `product_ed`, `product_original_packing`, `product_price`, `created_time`, `deleted_time`) VALUES
-(1, 2, 2, 'Paramexs', 120, '2020-10-10', 10, 5000, '2020-11-21 03:33:02', NULL);
+INSERT INTO `products` (`id_product`, `id_ingredient`, `product_name`, `product_code`, `product_stock`, `product_ed`, `product_original_packing`, `created_time`, `deleted_time`) VALUES
+(1, 2, 'Paramexs', '', 180, '2020-10-10', 10, '2020-11-21 03:33:02', NULL),
+(2, 2, 'KOMIX', 'KMX', 100, '2020-10-10', 10, '2020-11-21 04:56:37', NULL);
 
 -- --------------------------------------------------------
 
@@ -230,7 +236,6 @@ ALTER TABLE `outputs`
 --
 ALTER TABLE `products`
   ADD PRIMARY KEY (`id_product`),
-  ADD KEY `id_suplier` (`id_suplier`),
   ADD KEY `id_ingredient` (`id_ingredient`);
 
 --
@@ -265,7 +270,7 @@ ALTER TABLE `ingredients`
 -- AUTO_INCREMENT for table `inputs`
 --
 ALTER TABLE `inputs`
-  MODIFY `id_input` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_input` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `invoice_schema`
@@ -283,7 +288,7 @@ ALTER TABLE `outputs`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id_product` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_product` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `suplier`
@@ -325,8 +330,7 @@ ALTER TABLE `outputs`
 -- Constraints for table `products`
 --
 ALTER TABLE `products`
-  ADD CONSTRAINT `products_ibfk_1` FOREIGN KEY (`id_ingredient`) REFERENCES `ingredients` (`id_ingredient`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `products_ibfk_2` FOREIGN KEY (`id_suplier`) REFERENCES `suplier` (`id_suplier`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `products_ibfk_1` FOREIGN KEY (`id_ingredient`) REFERENCES `ingredients` (`id_ingredient`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

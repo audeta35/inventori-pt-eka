@@ -7,10 +7,11 @@ export default async (req, res) => {
       suplierId,
       ingredientId,
       productName,
+      productCode,
       productStock,
       productEd,
       productOriginalPacking,
-      productPrice,
+      totalPrice,
       userId
     } = req.body
 
@@ -20,6 +21,8 @@ export default async (req, res) => {
       return response.falseRequirement(res, 'ingredientId')
     } else if (!productName) {
       return response.falseRequirement(res, 'productName')
+    } else if (!productCode) {
+      return response.falseRequirement(res, 'productCode')
     } else if (!productStock) {
       return response.falseRequirement(res, 'productStock')
     } else if (!productEd) {
@@ -28,20 +31,19 @@ export default async (req, res) => {
       return response.falseRequirement(res, 'productOriginalPacking')
     } else if (!userId) {
       return response.falseRequirement(res, 'userId')
-    } else if (!productPrice) {
-      return response.falseRequirement(res, 'productPrice')
+    } else if (!totalPrice) {
+      return response.falseRequirement(res, 'totalPrice')
     } else {
       // insert products
       let query = `INSERT INTO products 
-                         SET id_suplier = ?, id_ingredient = ?, product_name = ?, product_stock = ?, product_ed = ?, product_original_packing = ?, product_price = ?
+                         SET id_ingredient = ?, product_name = ?, product_code = ?, product_stock = ?, product_ed = ?, product_original_packing = ?
                         `
-      conn.query(query, [suplierId, ingredientId, productName, productStock, productEd, productOriginalPacking, productPrice],
+      conn.query(query, [ingredientId, productName, productCode, productStock, productEd, productOriginalPacking],
         (err, result) => {
           if (err) {
             return response.error(res, err)
           }
           const productId = result.insertId
-          const totalPrice = parseInt(productStock) * parseInt(productPrice)
           // insert to table inputs
           query = `INSERT INTO inputs
                              SET id_product = ?, id_suplier = ?, id_user = ?, item_amount = ?, total_price = ?
