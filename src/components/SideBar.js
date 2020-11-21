@@ -86,7 +86,9 @@ export default function SideBar(props) {
             }}
         >
             <div className="text-center">
-                <img src='/static/UI/assets/logo.png' width={100} />
+                {props.open ? <img src='/static/UI/assets/logo.png' width={100} /> : (
+                    <div className="py-5"></div>
+                )}
             </div>
             <List>
             {menu.map((data, index) => (

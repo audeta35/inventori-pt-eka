@@ -17,6 +17,7 @@ class MyApp extends App {
     super(props);
     this.state = {
       isLoading : true,
+      isNumber : 0,
     }
   }
 

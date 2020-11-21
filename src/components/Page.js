@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    backgroundColor: "#f0ad4e",
+    backgroundColor: "#ffc107",
   },
   appBarShift: {
     marginLeft: drawerWidth,
@@ -106,7 +106,7 @@ export default function Page(props) {
       />
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        {isLoading ? <b>Loading</b> : props.children }
+        {isLoading ? null : props.children }
       </main>
     </div>
   );
