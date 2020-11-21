@@ -10,5 +10,10 @@ module.exports = {
     config.output.publicPath = `${assetPrefix}${config.output.publicPath}`
 
     return config
+  },
+  api: {
+    bodyParser: {
+      sizeLimit: '500kb'
+    }
   }
 }
