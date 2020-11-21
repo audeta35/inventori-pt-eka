@@ -10,10 +10,8 @@ export default async (req, res) => {
       productStock,
       productEd,
       productOriginalPacking,
-
-      userId,
-      itemAmount,
-      totalPrice
+      productPrice,
+      userId
     } = req.body
 
     if (!suplierId) {
@@ -30,32 +28,31 @@ export default async (req, res) => {
       return response.falseRequirement(res, 'productOriginalPacking')
     } else if (!userId) {
       return response.falseRequirement(res, 'userId')
-    } else if (!itemAmount) {
-      return response.falseRequirement(res, 'itemAmount')
-    } else if (!totalPrice) {
-      return response.falseRequirement(res, 'totalPrice')
+    } else if (!productPrice) {
+      return response.falseRequirement(res, 'productPrice')
     } else {
       // insert products
       let query = `INSERT INTO products 
-                         SET id_suplier = ?, id_ingredients = ?, product_name = ?, product_stock = ?, product_ed = ?, product_original_packing = ?
+                         SET id_suplier = ?, id_ingredient = ?, product_name = ?, product_stock = ?, product_ed = ?, product_original_packing = ?, product_price = ?
                         `
-      conn.query(query, [suplierId, ingredientId, productName, productStock, productEd, productOriginalPacking],
+      conn.query(query, [suplierId, ingredientId, productName, productStock, productEd, productOriginalPacking, productPrice],
         (err, result) => {
           if (err) {
             return response.error(res, err)
           }
           const productId = result.insertId
+          const totalPrice = parseInt(productStock) * parseInt(productPrice)
           // insert to table inputs
           query = `INSERT INTO inputs
                              SET id_product = ?, id_suplier = ?, id_user = ?, item_amount = ?, total_price = ?
                             `
-          conn.query(query, [productId, suplierId, userId, itemAmount, totalPrice],
+          conn.query(query, [productId, suplierId, userId, productStock, totalPrice],
             (err) => {
               if (err) {
                 return response.error(res, err)
               }
               // select all products
-              query = `SELECT * FROM products`
+              query = `SELECT * FROM products WHERE deleted_time IS NULL`
               conn.query(query, (err, productList) => {
                 if (err) {
                   return response.error(res, err)
