@@ -4,14 +4,18 @@ const response = require('../../../../../server/config/response')
 export default async (req, res) => {
   if (req.method === 'POST') {
     const { query: { productId } } = req
-    const { userId, stock } = req.body
+    const { suplierId, userId, stock, totalPrice } = req.body
 
     if (!productId) {
       return response.falseRequirement(res, 'productId')
+    } else if (!suplierId) {
+      return response.falseRequirement(res, 'suplierId')
     } else if (!userId) {
       return response.falseRequirement(res, 'userId')
     } else if (!stock) {
       return response.falseRequirement(res, 'stock')
+    } else if (!totalPrice) {
+      return response.falseRequirement(res, 'totalPrice')
     } else {
       // get detail product
       let query = `SELECT *FROM products
@@ -38,12 +42,10 @@ export default async (req, res) => {
               return response.invalid(res, 'Product Id')
             }
             // insert to table inputs
-            const totalPrice = product.product_price * parseInt(stock)
-
             query = `INSERT INTO inputs
                              SET id_product = ?, id_suplier = ?, id_user = ?, item_amount = ?, total_price = ?
                     `
-            conn.query(query, [productId, product.id_suplier, userId, stock, totalPrice],
+            conn.query(query, [productId, suplierId, userId, stock, totalPrice],
               (err) => {
                 if (err) {
                   return response.error(res, err)

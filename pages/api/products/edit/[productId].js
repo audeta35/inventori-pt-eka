@@ -5,31 +5,28 @@ export default async (req, res) => {
   if (req.method === 'PUT') {
     const { query: { productId } } = req
     const {
-      suplierId,
       ingredientId,
       productName,
+      productCode,
       productStock,
       productEd,
-      productOriginalPacking,
-      productPrice
+      productOriginalPacking
     } = req.body
 
-    if (!suplierId) {
-      return response.falseRequirement(res, 'suplierId')
-    } else if (!ingredientId) {
+    if (!ingredientId) {
       return response.falseRequirement(res, 'ingredientId')
     } else if (!productName) {
       return response.falseRequirement(res, 'productName')
+    } else if (!productCode) {
+      return response.falseRequirement(res, 'productCode')
     } else if (!productStock) {
       return response.falseRequirement(res, 'productStock')
     } else if (!productEd) {
       return response.falseRequirement(res, 'productEd')
     } else if (!productOriginalPacking) {
       return response.falseRequirement(res, 'productOriginalPacking')
-    } else if (!productPrice) {
-      return response.falseRequirement(res, 'productPrice')
     } else {
-      let query = `SELECT product_stock, product_price FROM products WHERE id_product = ?`
+      let query = `SELECT product_stock FROM products WHERE id_product = ?`
       conn.query(query, [productId], (err, product) => {
         if (err) {
           return response.error(res, err)
@@ -54,13 +51,12 @@ export default async (req, res) => {
           if (product.product_stock === parseInt(productStock)) {
             stockNow = input.item_amount
           }
-          const totalPriceNow = parseInt(stockNow) * product.product_price
 
           query = `UPDATE products, inputs 
-                   SET products.id_suplier = ?, products.id_ingredient = ?, products.product_name = ?, products.product_stock = ?, products.product_ed = ?, products.product_original_packing = ?, products.product_price = ?, 
-                       inputs.item_amount = ?, inputs.total_price = ?
+                   SET products.id_ingredient = ?, products.product_name = ?, products.product_code = ?, products.product_stock = ?, products.product_ed = ?, products.product_original_packing = ?, 
+                       inputs.item_amount = ?
                    WHERE products.id_product = inputs.id_product AND inputs.id_input = ?`
-          const payload = [suplierId, ingredientId, productName, productStock, productEd, productOriginalPacking, productPrice, stockNow, totalPriceNow, input.id_input]
+          const payload = [ingredientId, productName, productCode, productStock, productEd, productOriginalPacking, stockNow, input.id_input]
 
           conn.query(query, payload, (err, result) => {
             if (err) {
