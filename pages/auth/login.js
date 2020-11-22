@@ -80,9 +80,11 @@ export default class Login extends Component {
                           ) : (
                             <>
                             <img src='/static/UI/assets/logo.png' width={250} />
+                            <Fade in={true}>
                             <h3 className="text-white text-uppercase">
-                              Sistem Informasi Barang
+                              Sistem Informasi Barang 
                             </h3>
+                            </Fade>
                             </>
                           )}
                       </div>
