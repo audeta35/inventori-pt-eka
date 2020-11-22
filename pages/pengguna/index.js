@@ -64,6 +64,16 @@ export default class Pengguna extends Component {
                             <button className="btn-sm btn-block btn-warning text-white border-0">Aktif</button>
                         ) : <Chip label="Blokir" className="bg-secondary text-white" />
                     )
+                },
+                {
+                    name: 'Opsi',
+                    selector: 'opsi',
+                    sortable: false,
+                    cell: (row) => (
+                        <button className="btn-xs btn-dark btn-block" onClick={() => this._setIsOpenDetail(row)}>
+                            Info Pengguna
+                        </button>
+                    )
                 }
             ],
             // get time, date, month and year
@@ -213,11 +223,8 @@ export default class Pengguna extends Component {
                                     noHeader={true}
                                     columns={this.state.columns}
                                     data={this.state.dataFilter.length === 0 ? this.state.data : this.state.dataFilter}
-                                    Clicked={true}
                                     fixedHeader={false}
                                     pagination={true}
-                                    onRowClicked={(row) => this._setIsOpenDetail(row)}
-                                    pointerOnHover={true}
                                     highlightOnHover={true}
                                     paginationRowsPerPageOptions={[25, 50, 75, 100]}
                                 />
@@ -303,19 +310,22 @@ export default class Pengguna extends Component {
                         <DialogActions>
                             {this.state.isEdit ? (
                             <>
-                                <button onClick={() => this._setIsEdit()} className="btn-xs btn-warning text-white rounded">
+                                <button onClick={() => this._setIsCloseDetail()} className="btn-sm btn-dark float-left text-white rounded">
+                                    tutup
+                                </button>
+                                <button onClick={() => this._setIsEdit()} className="btn-sm btn-warning text-white rounded">
                                     Ubah
                                 </button>
-                                <button className="btn-xs btn-danger text-white rounded">
+                                <button className="btn-sm btn-danger text-white rounded">
                                     hapus
                                 </button>
                             </>
                             ) : (
                             <>
-                                <button onClick={() => this._setIsCloseDetail()} className="rounded">
+                                <button onClick={() => this._setIsCloseDetail()} className="btn-sm  btn-dark rounded">
                                     batal
                                 </button>
-                                <button className="btn-xs btn-warning text-white rounded">
+                                <button className="btn-sm btn-warning text-white rounded">
                                     simpan
                                 </button>
                             </>
