@@ -38,6 +38,7 @@ class MyApp extends App {
           <title>{title}</title>
           <meta name='viewport' content='width=device-width, initial-scale=1' />
           <meta property='og:title' content={title} />
+          <meta name="theme-color" content="#f0ad4e" />
           <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
           <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
         </Helmet>

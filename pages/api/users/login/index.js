@@ -1,11 +1,11 @@
 const conn = require('../../../../server/config/mysqli')
 const response = require('../../../../server/config/response')
 const sha256 = require('sha256')
-const jwt = require('jsonwebtoken')
 
 export default async (req, res) => {
   if (req.method === 'POST') {
-    const { username, password } = req.body
+    console.log('hello')
+    const { username, password } = JSON.parse(req.body);
     const hashPassword = sha256(password)
     const query = `SELECT * FROM users WHERE name=? AND password=?`
 
@@ -15,10 +15,7 @@ export default async (req, res) => {
       } else if (userList.length === 0) {
         return response.notFound(res, err)
       } else {
-        const token = jwt.sign({ userList }, process.env.JWT_KEY, {
-          expiresIn: '12h'
-        })
-        return response.loginSuccess(res, userList, token)
+        return response.loginSuccess(res, userList)
       }
     })
   } else {
